@@ -1,237 +1,128 @@
 <!DOCTYPE html>
-<!-- saved from url=(0014)about:internet -->
-<html lang=" en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NLP Class Project | Spring 2025 CSCI 5541 | University of Minnesota</title>
 
   <link rel="stylesheet" href="./files/bulma.min.css" />
-
   <link rel="stylesheet" href="./files/styles.css">
   <link rel="preconnect" href="https://fonts.gstatic.com/">
   <link href="./files/css2" rel="stylesheet">
   <link href="./files/css" rel="stylesheet">
-
-
-  <base href="." target="_blank"></head>
-
+</head>
 
 <body>
-  <div>
-    <div class="wrapper">
-      <h1 style="font-family: &#39;Lato&#39;, sans-serif;">Do LLMs have Personality? </h1>
-      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Spring 2025 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
-      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Nvidia and Chill</h4>
-
-      <div class="authors-wrapper">
-        
-        <div class="author-container">
-          <div class="author-image">
-                        
-              <img src="">
-            
-            
-          </div>
-          <p>
-                        
-              Vaibhav Jain
-            
-          </p>
-        </div>      
-      </div>
-
-      <br/>
-
-      <div class="authors-wrapper">
-        <div class="publication-links">
-          <!-- Github link -->
-          <span class="link-block">
-            <a
-              href=""
-              target="_blank"
-              class="external-link button is-normal is-rounded is-dark is-outlined"
-            >
-            <span>Final Report</span>
-            </a>
-          </span>
-          <span class="link-block">
-            <a
-              href=""
-              target="_blank"
-              class="external-link button is-normal is-rounded is-dark is-outlined"
-            >
-            <span>Code</span>
-            </a>
-          </span>      
-          <span class="link-block">
-            <a
-              href=""
-              target="_blank"
-              class="external-link button is-normal is-rounded is-dark is-outlined"
-            >
-            <span>Model Weights</span>
-            </a>
-          </span>              
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-
-
-
-
-
-  
-  
-
-
   <div class="wrapper">
+    <h1>Do LLMs have Personality?</h1>
+    <h4>Spring 2025 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+    <h4>Nvidia and Chill</h4>
+
+    <div class="authors-wrapper">
+      <div class="author-container">
+        <div class="author-image">
+          <img src="./files/avatar.png" alt="Vaibhav Jain">
+        </div>
+        <p>Vaibhav Jain</p>
+      </div>
+    </div>
+
+    <div class="publication-links">
+      <span class="link-block">
+        <a href="" class="button is-normal is-rounded is-dark is-outlined" target="_blank">Final Report</a>
+      </span>
+      <span class="link-block">
+        <a href="" class="button is-normal is-rounded is-dark is-outlined" target="_blank">Code</a>
+      </span>
+      <span class="link-block">
+        <a href="" class="button is-normal is-rounded is-dark is-outlined" target="_blank">Model Weights</a>
+      </span>
+    </div>
+
     <hr>
-    
+
     <h2 id="abstract">Abstract</h2>
-
-<p>This project explores how different Large Language Models (LLMs) respond to the same personality questionnaire (the Big Five Inventory Short Form, BFI-2-S) when prompted to answer as 
-  if they belong to specific demographic profiles. By comparing model outputs, we can observe how demographic context might shape the perceived personality traits. 
-  The findings demonstrate variability in how each model “interprets” demographic cues, opening the door for future research into model biases, controllable text generation, and personalization.</p>
-
-<hr>
-
-<h2 id="teaser">Teaser Figure</h2>
-
-<p>A figure that conveys the main idea behind the project or the main application being addressed. This figure is from <a href="https://arxiv.org/pdf/2210.07469">StyLEx</a>.</p>
-
-<p class="sys-img"><img src="./files/teaser.png" alt="imgname"></p>
-
-
-<h3 id="the-timeline-and-the-highlights">Any subsection</h3>
-
-<p>If you need to explain more about your figure</p>
-
-<hr>
-
-<h2 id="introduction">Introduction / Background / Motivation</h2>
-
-<p>
-<b>What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</b>
-</p>
-<p>
-With the rapid growth of open-source LLMs, researchers and practitioners alike are keenly interested in how these models adapt their responses based on user or persona prompts. 
-  Personality questionnaires such as the Big Five Inventory–2 Short Form (BFI-2-S) offer a standardized way to measure or simulate personality attributes (e.g., Extraversion, Agreeableness, Conscientiousness, 
-  Negative Emotionality, and Open-Mindedness).</p>
-<p>Recent work has shown that large language models may display systematic differences in responses when given demographic or identity prompts. 
-  These differences are relevant for many applications, including personalized education, mental health, recommendation systems, and more. Our goal here is to investigate whether 
-  a given LLM’s responses to a well-known personality inventory vary in a predictable manner when it is asked to “adopt” different demographic backgrounds.
-</p>
-<hr>
-
-<h2 id="approach">Methodology</h2>
-
-<p>
-<b>1. Demographic Profiles</b>
-We created 10 distinct demographic profiles, each specifying age, gender, occupation, and country of residence:
-<ul>
-<li>{DemographicProfile[1]}: 18-year-old male, high school student, United States </li>
-
-<li>{DemographicProfile[2]}: 25-year-old female, graduate student, Germany</li>
-
-<li>{DemographicProfile[3]}: 30-year-old, software engineer, India</li>
-
-<li>{DemographicProfile[4]}: 40-year-old male, teacher, Brazil</li>
-
-<li>{DemographicProfile[5]}: 22-year-old female, college student, Nigeria</li>
-
-<li>{DemographicProfile[6]}: 35-year-old male, office worker, Japan </li>
-
-<li>{DemographicProfile[7]}: 50-year-old female, nurse, United Kingdom </li>
-
-<li>{DemographicProfile[8]}: 28-year-old nonbinary, freelance artist, Canada </li>
-
-<li>{DemographicProfile[9]}: 60-year-old male, retired professor, South Korea </li>
-
-<li>{DemographicProfile[10]}: 45-year-old female, entrepreneur, Egypt </li>
-</ul>
-</p>
     <p>
-      <b>2. BFI-2-S 30-Item Questionnaire</b>
-    <p>We used the following statements exactly as provided. Each is rated on a scale from 1 (Strongly Disagree) to 5 (Strongly Agree), starting with “I am someone who..."</p>
-      <p class="sys-img"><img src="./files/bfi.png" alt="imgname"></p>
-     <p>
-       <b>3. Prompt Template</b>
-      <p>Below is an example prompt for {DemographicProfile[1]}. The other nine demographic profiles follow the same structure, changing only the initial demographic line.</p>
-        <p class="sys-img"><img src="./files/prompt.png" alt="imgname"></p>
-    <p>We repeated this approach for each demographic profile (D1–D10). The only difference across runs was the initial line referencing the demographic details.</p>
+      This project explores how different Large Language Models (LLMs) respond to the same personality questionnaire (the Big Five Inventory Short Form, BFI-2-S) when prompted to answer as if they belong to specific demographic profiles. By comparing model outputs, we observe how demographic context might shape perceived personality traits. The findings demonstrate variability in how each model “interprets” demographic cues, opening the door for future research into model biases, controllable text generation, and personalization.
     </p>
-    <b>Models</b>
-    <p>Qwen/Qwen2.5-3B-Instruct</p>
-    <p>meta-llama/Llama-3.2-3B-Instruct</p>
-    <p></p>
-<hr>
-    
-<h2 id="results">Results</h2>
-<p>
-<b>How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</b>
-</p>
-<p>
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-</p>
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center"><strong>Experiment</strong></th>
-      <th style="text-align: center">1</th>
-      <th style="text-align: center">2</th>
-      <th style="text-align: center">3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center"><strong>Sentence</strong></td>
-      <td style="text-align: center">Example 1</td>
-      <td style="text-align: center">Example 2</td>
-      <td style="text-align: center">Example 3</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><strong>Errors</strong></td>
-      <td style="text-align: center">error A, error B, error C</td>
-      <td style="text-align: center">error C</td>
-      <td style="text-align: center">error B</td>
-    </tr>
-  </tbody>
-  <caption>Table 1. This is Table 1's caption</caption>
-</table>
-<br>
-<div style="text-align: center;">
-<img style="height: 300px;" alt="" src="./files/results.png">
-</div>
-<br><br>
 
-<hr>
+    <hr>
+    <h2 id="teaser">Teaser Figure</h2>
+    <p>A figure that conveys the main idea behind the project. This figure is from <a href="https://arxiv.org/pdf/2210.07469">StyLEx</a>.</p>
+    <p class="sys-img"><img src="./files/teaser.png" alt="Teaser"></p>
 
+    <hr>
+    <h2 id="introduction">Introduction / Background / Motivation</h2>
+    <p><strong>What did you try to do? What problem did you try to solve?</strong></p>
+    <p>
+      With the rapid growth of open-source LLMs, researchers are interested in how these models adapt responses based on user or persona prompts. Personality questionnaires like BFI-2-S offer a standardized way to simulate personality attributes.
+    </p>
+    <p>
+      Our goal is to investigate if LLM responses to BFI-2-S vary predictably when asked to adopt different demographic backgrounds.
+    </p>
 
+    <hr>
+    <h2 id="approach">Methodology</h2>
+    <p><strong>1. Demographic Profiles</strong></p>
+    <ul>
+      <li>18-year-old male, high school student, United States</li>
+      <li>25-year-old female, graduate student, Germany</li>
+      <li>30-year-old, software engineer, India</li>
+      <li>40-year-old male, teacher, Brazil</li>
+      <li>22-year-old female, college student, Nigeria</li>
+      <li>35-year-old male, office worker, Japan</li>
+      <li>50-year-old female, nurse, United Kingdom</li>
+      <li>28-year-old nonbinary, freelance artist, Canada</li>
+      <li>60-year-old male, retired professor, South Korea</li>
+      <li>45-year-old female, entrepreneur, Egypt</li>
+    </ul>
 
-<h2 id="conclusion">Conclustion and Future Work</h2>
-<p>
+    <p><strong>2. BFI-2-S 30-Item Questionnaire</strong></p>
+    <p>Each statement rated on a scale of 1–5. “I am someone who...”</p>
+    <p><img src="./files/bfi.png" alt="BFI Questionnaire"></p>
 
- By administering the BFI-2-S questionnaire to LLaMA, Qwen, and Mistral under 10 different demographic prompts, we observe that LLMs can generate distinct personality “profiles” from the same standardized questions. Key takeaways:
+    <p><strong>3. Prompt Template</strong></p>
+    <p>Example demographic prompt used for all profiles:</p>
+    <p><img src="./files/prompt.png" alt="Prompt Example"></p>
 
-Potential Biases: Models may embed stereotypes regarding age, culture, or occupation within the personality ratings.
+    <p><strong>Models Used:</strong></p>
+    <ul>
+      <li>Qwen/Qwen2.5-3B-Instruct</li>
+      <li>Meta-Llama/Llama-3.2-3B-Instruct</li>
+      <li>Mistral/Mistral-7B-Instruct</li>
+    </ul>
 
-Utility for Personalization: This approach showcases how a single prompt format can be adapted to produce context-aware or “personalized” responses.
+    <hr>
+    <h2 id="results">Results</h2>
+    <p>Results include both quantitative and qualitative differences in how models responded.</p>
 
-Future Work: Further analysis—e.g., examining factor-level scores, comparing with real human data, or refining prompt structures—would deepen our understanding of how LLMs interpret demographic cues.
+    <table>
+      <caption>Table 1. Summary of Errors Across Examples</caption>
+      <thead>
+        <tr><th>Experiment</th><th>1</th><th>2</th><th>3</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sentence</td><td>Example 1</td><td>Example 2</td><td>Example 3</td></tr>
+        <tr><td>Errors</td><td>error A, B, C</td><td>error C</td><td>error B</td></tr>
+      </tbody>
+    </table>
 
-Overall, the findings underscore the nuanced ways open-source LLMs use contextual information to shape personality questionnaire responses, reinforcing the need for careful examination of 
-  biases and personalization in AI-driven applications.</p>
+    <div style="text-align: center;">
+      <img src="./files/results.png" alt="Results" style="height: 300px;">
+    </div>
 
-
-<hr>
-
+    <hr>
+    <h2 id="conclusion">Conclusion and Future Work</h2>
+    <p>
+      By administering the BFI-2-S questionnaire to LLaMA, Qwen, and Mistral under 10 demographic prompts, we observe LLMs can generate distinct personality profiles from standardized inputs.
+    </p>
+    <ul>
+      <li><strong>Biases:</strong> Models may embed cultural/age/occupation stereotypes.</li>
+      <li><strong>Personalization:</strong> Prompts offer a route to context-aware generation.</li>
+      <li><strong>Future Work:</strong> Further evaluation on real human baselines, prompt refinement, and bias mitigation.</li>
+    </ul>
 
   </div>
-  
-
-
-</body></html>
+</body>
+</html>
