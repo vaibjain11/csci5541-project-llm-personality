@@ -4,7 +4,7 @@
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NLP Class Project | Fall 2024 CSCI 5541 | University of Minnesota</title>
+  <title>NLP Class Project | Spring 2025 CSCI 5541 | University of Minnesota</title>
 
   <link rel="stylesheet" href="./files/bulma.min.css" />
 
@@ -20,9 +20,9 @@
 <body>
   <div>
     <div class="wrapper">
-      <h1 style="font-family: &#39;Lato&#39;, sans-serif;">Your Title Here</h1>
-      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Fall 2024 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
-      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Team Name</h4>
+      <h1 style="font-family: &#39;Lato&#39;, sans-serif;">Do LLMs have Personality? </h1>
+      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Spring 2025 CSCI 5541 NLP: Class Project - University of Minnesota</h4>
+      <h4 style="font-family: &#39;Lato&#39;, sans-serif; ">Nvidia and Chill</h4>
 
       <div class="authors-wrapper">
         
@@ -35,46 +35,10 @@
           </div>
           <p>
                         
-              Member 1
+              Vaibhav Jain
             
           </p>
-        </div>
-        
-        <div class="author-container">
-          <div class="author-image">
-            
-            <img src="">
-            
-          </div>
-          <p>
-            
-            Member 2
-            
-          </p>
-        </div>
-        
-        <div class="author-container">
-          <div class="author-image">
-            
-              <img src="">            
-            
-          </div>
-          <p>
-              Member 3
-          </p>
-        </div>
-        
-        <div class="author-container">
-          <div class="author-image">
-                        
-              <img src="">
-            
-          </div>
-          <p>
-            Member 4
-          </p>
-        </div>
-        
+        </div>      
       </div>
 
       <br/>
@@ -129,7 +93,9 @@
     
     <h2 id="abstract">Abstract</h2>
 
-<p>One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.</p>
+<p>This project explores how different Large Language Models (LLMs) respond to the same personality questionnaire (the Big Five Inventory Short Form, BFI-2-S) when prompted to answer as 
+  if they belong to specific demographic profiles. By comparing model outputs, we can observe how demographic context might shape the perceived personality traits. 
+  The findings demonstrate variability in how each model “interprets” demographic cues, opening the door for future research into model biases, controllable text generation, and personalization.</p>
 
 <hr>
 
@@ -152,43 +118,48 @@
 <b>What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</b>
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+With the rapid growth of open-source LLMs, researchers and practitioners alike are keenly interested in how these models adapt their responses based on user or persona prompts. 
+  Personality questionnaires such as the Big Five Inventory–2 Short Form (BFI-2-S) offer a standardized way to measure or simulate personality attributes (e.g., Extraversion, Agreeableness, Conscientiousness, 
+  Negative Emotionality, and Open-Mindedness).</p>
+<p>Recent work has shown that large language models may display systematic differences in responses when given demographic or identity prompts. 
+  These differences are relevant for many applications, including personalized education, mental health, recommendation systems, and more. Our goal here is to investigate whether 
+  a given LLM’s responses to a well-known personality inventory vary in a predictable manner when it is asked to “adopt” different demographic backgrounds.
 </p>
-
-<p>
-<b>How is it done today, and what are the limits of current practice?</b>
-</p>
-<p>
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-<p>
-
-<p>
-<b>Who cares? If you are successful, what difference will it make?</b>
-</p>
-<p>
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-
 <hr>
 
-<h2 id="approach">Approach</h2>
+<h2 id="approach">Methodology</h2>
 
 <p>
-<b>What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</b>
-</p>
+<b>1. Demographic Profiles</b>
+We created 10 distinct demographic profiles, each specifying age, gender, occupation, and country of residence:
+<ul>
+<li>{DemographicProfile[1]}: 18-year-old male, high school student, United States </li>
 
-<p>
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</p>
+<li>{DemographicProfile[2]}: 25-year-old female, graduate student, Germany</li>
 
-<p>
-<b>What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</b>
-</p>
+<li>{DemographicProfile[3]}: 30-year-old, software engineer, India</li>
 
-<p>
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-</p>
+<li>{DemographicProfile[4]}: 40-year-old male, teacher, Brazil</li>
 
+<li>{DemographicProfile[5]}: 22-year-old female, college student, Nigeria</li>
+
+<li>{DemographicProfile[6]}: 35-year-old male, office worker, Japan </li>
+
+<li>{DemographicProfile[7]}: 50-year-old female, nurse, United Kingdom </li>
+
+<li>{DemographicProfile[8]}: 28-year-old nonbinary, freelance artist, Canada </li>
+
+<li>{DemographicProfile[9]}: 60-year-old male, retired professor, South Korea </li>
+
+<li>{DemographicProfile[10]}: 45-year-old female, entrepreneur, Egypt </li>
+</ul>
+</p>
+    <p>
+      <b>2. BFI-2-S 30-Item Questionnaire</b>
+    <p>We used the following statements exactly as provided. Each is rated on a scale from 1 (Strongly Disagree) to 5 (Strongly Agree), starting with “I am someone who..."</p>
+      <p class="sys-img"><img src="./files/bfi.png" alt="imgname"></p>
+      
+    </p>
 <hr>
     
 <h2 id="results">Results</h2>
