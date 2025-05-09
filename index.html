@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Do LLMs Have Personality? | CSCI 5541 Spring 2025</title>
+  <title>Do LLMs Have Personality? | CSCI 5541 (Spring 2025)</title>
 
+  <!-- local CSS files live in the same folder as this index.html -->
   <link rel="stylesheet" href="bulma.min.css">
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    img.responsive {max-width:100%; height:auto;}
+    img.responsive { max-width: 100%; height: auto; }
     h2 { margin-top: 2rem; }
   </style>
 </head>
@@ -18,125 +19,133 @@
 <body>
   <div class="wrapper">
     <h1 class="title">Do LLMs Have Personality?</h1>
-    <h4 class="subtitle">Spring 2025 • CSCI 5541 NLP • University of Minnesota</h4>
+    <h4 class="subtitle">CSCI 5541 - Natural Language Processing • University of Minnesota</h4>
     <h4 class="subtitle">Team “nvidia and chill”</h4>
 
     <hr>
 
-    <!-- ───────────── ABSTRACT ───────────── -->
+    <!-- ----------------- ABSTRACT ----------------- -->
     <section id="abstract">
       <h2>Abstract</h2>
       <p>
-        We administer the 30-item <em>Big Five Inventory (BFI-2-S)</em> to four open-source
-        LLMs—Gemma-3-1B-it, Qwen-2.5-3B, LLaMA-3.2-1B and 3B—in 540 synthetic demographic
-        contexts (age × gender × location × education). Over 64 000 Likert-scale responses
-        reveal stable, model-specific trait signatures: Gemma is highly agreeable and
-        emotionally stable; LLaMA models are neutral; Qwen is moderate. These behavioural
-        fingerprints highlight the need for personality-aware evaluation when deploying
-        conversational AI in sensitive settings.
+        We administer the 30-item <em>Big Five Inventory (BFI-2-S)</em> to four instruction-tuned
+        Large Language Models (Gemma-3-1B-it, Qwen-2.5-3B, LLaMA-3.2-1B, LLaMA-3.2-3B) across
+        540 synthetic demographic profiles. More than 64 000 Likert-scale responses reveal
+        stable, model-specific personality signatures: Gemma leans highly agreeable and
+        emotionally stable, while LLaMA models cluster near neutral. These findings highlight
+        the importance of personality-aware evaluation for trustworthy conversational AI.
       </p>
     </section>
 
     <hr>
 
-    <!-- ───────────── INTRODUCTION ───────────── -->
-    <section id="intro">
-      <h2>1. Introduction</h2>
+    <!-- ----------------- INTRODUCTION ----------------- -->
+    <section id="introduction">
+      <h2>1  Introduction &amp; Motivation</h2>
       <p>
-        Instruction-tuned LLMs drive chatbots, tutors and digital assistants. Even without
-        explicit persona prompts, they exhibit recognisable conversational “styles” that
-        users perceive as personality. Quantifying such emergent traits is critical for
-        alignment and fairness audits.
+        Modern LLMs often appear to users as having a “tone” or “personality,” even when no persona
+        prompt is provided. Such emergent behaviour can affect user trust, engagement and even
+        downstream decision-making. Yet personality bias is rarely measured in a principled way.
+      </p>
+      <p>
+        Our goal is to quantify these latent traits by giving each model the same standard
+        psychometric test—BFI-2-S—under controlled demographic contexts. If personality bias is
+        present, it should manifest as consistent trait patterns independent of profile wording.
       </p>
     </section>
 
     <hr>
 
-    <!-- ───────────── METHODOLOGY ───────────── -->
+    <!-- ----------------- METHODOLOGY ----------------- -->
     <section id="methodology">
-      <h2>2. Methodology</h2>
+      <h2>2  Methodology</h2>
 
       <h3>2.1 Synthetic Profile Grid (540)</h3>
       <ul>
-        <li><strong>Age (6)</strong>: 18–25, 26–35, 36–45, 46–55, 56–65, 66+</li>
-        <li><strong>Gender (3)</strong>: Male, Female, Non-binary</li>
-        <li><strong>Location (6)</strong>: USA, Germany, India, Brazil, Japan, Australia</li>
-        <li><strong>Education (5)</strong>: High-School, Associate’s, Bachelor’s, Master’s, Doctorate</li>
+        <li><strong>Age (6):</strong> 18–25, 26–35, 36–45, 46–55, 56–65, 66+</li>
+        <li><strong>Gender (3):</strong> Male, Female, Non-binary</li>
+        <li><strong>Location (6):</strong> USA, Germany, India, Brazil, Japan, Australia</li>
+        <li><strong>Education (5):</strong> High-School, Associate’s, Bachelor’s, Master’s, Doctorate</li>
       </ul>
 
       <h3>2.2 Prompt Template</h3>
-      <p>
-        Each (profile + BFI item) is sent as a two-message chat:
-      </p>
-      <ol>
-        <li><code>system</code>: “You are a helpful assistant completing a Big Five
-            personality survey.”</li>
-        <li><code>user</code>: demographic sentence + instruction header
-            (<code>Answer with a single number 1-5 only</code>) + the BFI statement.</li>
-      </ol>
-
       <figure>
-        <img src="bfi-2.png" class="responsive" alt="Prompt template">
-        <figcaption style="text-align:center;">
-          Figure&nbsp;1 – Example prompt (aspect ratio preserved).
+        <img src="bfi-2.png" class="responsive" alt="Prompt template example">
+        <figcaption style="text-align:center">
+          Figure 1 – Example prompt containing demographic context, instructions, and one BFI-2-S item.
         </figcaption>
       </figure>
 
       <h3>2.3 Models &amp; Inference</h3>
       <p>
-        We used <strong>Gemma-3-1B-it</strong>, <strong>Qwen-2.5-3B</strong>,
-        <strong>LLaMA-3.2-1B</strong> and <strong>LLaMA-3.2-3B</strong> under vLLM
-        (temperature 0.0, max 4 tokens). Each model answered 16 200 prompts.
+        Each model answered 16 200 prompts (540 profiles × 30 items) using deterministic
+        decoding (temperature 0.0, max_tokens 4) via vLLM on a single A100 GPU.
       </p>
 
-      <h3>2.4 Scoring</h3>
+      <h3>2.4 Scoring &amp; Aggregation</h3>
       <p>
-        The first digit (1-5) is parsed; reverse-scored items are inverted
-        (<code>6 − rating</code>). Per-profile trait means are aggregated to model-level
-        means ± SD.
+        We parsed the first digit (1–5), applied reverse-scoring where required,
+        computed per-profile trait means, then aggregated to a model-level mean ± SD.
       </p>
     </section>
 
     <hr>
 
-    <!-- ───────────── RESULTS ───────────── -->
+    <!-- ----------------- RESULTS ----------------- -->
     <section id="results">
-      <h2>3. Results</h2>
+      <h2>3  Results</h2>
 
-      <h3>3.1 Trait Means (Likert 1-5)</h3>
+      <h3>3.1 Trait Means</h3>
       <table class="table is-striped is-fullwidth">
         <thead>
           <tr>
-            <th>Model</th><th>Extrav.</th><th>Agree.</th><th>Consc.</th><th>Neuro.</th><th>Open.</th>
+            <th>Model</th><th>Extr.</th><th>Agree.</th><th>Consc.</th><th>Neur.</th><th>Open.</th>
           </tr>
         </thead>
         <tbody>
           <tr><td>Gemma-3-1B-it</td><td>4.19</td><td>4.60</td><td>4.40</td><td>1.89</td><td>4.20</td></tr>
-          <tr><td>Qwen-2.5-3B</td><td>3.75</td><td>4.05</td><td>3.90</td><td>2.60</td><td>4.00</td></tr>
+          <tr><td>Qwen-2.5-3B</td> <td>3.75</td><td>4.05</td><td>3.90</td><td>2.60</td><td>4.00</td></tr>
           <tr><td>LLaMA-3.2-1B</td><td>3.45</td><td>3.50</td><td>3.40</td><td>3.35</td><td>3.60</td></tr>
           <tr><td>LLaMA-3.2-3B</td><td>3.42</td><td>3.55</td><td>3.48</td><td>3.30</td><td>3.55</td></tr>
         </tbody>
       </table>
 
-      <h3>3.2 Comparative Bar Chart</h3>
+      <h3>3.2 Bar-Chart Comparison</h3>
       <figure>
-        <img src="traits_across_models.png" class="responsive" alt="Bar chart of trait comparison">
-        <figcaption style="text-align:center;">
-          Figure&nbsp;2 – Mean trait scores across models (error bars = ± SD).
+        <img src="traits_across_models.png" class="responsive" alt="Trait comparison bar chart">
+        <figcaption style="text-align:center">
+          Figure 2 – Gemma is clearly the most agreeable and least neurotic; LLaMA models cluster
+          near the neutral midpoint; Qwen sits between Gemma and LLaMA for most traits.
         </figcaption>
       </figure>
+
+      <p>
+        <strong>Observations.</strong>
+        Compared to the neutral LLaMA models, Gemma displays a strikingly low mean Neuroticism (1.89)
+        and the highest Agreeableness (4.60), suggesting an intrinsically soothing writing style.
+        Qwen’s profile mirrors Gemma’s on Openness but shows slightly higher Neuroticism. These
+        gaps remain almost unchanged across 540 demographics, underscoring that architecture and
+        training dominate over prompt metadata.
+      </p>
     </section>
 
     <hr>
 
-    <!-- ───────────── CONCLUSION ───────────── -->
+    <!-- ----------------- CONCLUSION ----------------- -->
     <section id="conclusion">
-      <h2>4. Conclusion &amp; Future Work</h2>
-      <ul>
-        <li><strong>Bias:</strong> Personality patterns suggest embedded cultural stereotypes.</li>
-        <li><strong>Personalisation:</strong> Demographic prompts reliably steer style.</li>
-        <li><strong>Next:</strong> Human baselines, prompt-engineered trait control, bias mitigation.</li>
-      </ul>
+      <h2>4  Conclusion &amp; Future Work</h2>
+      <p>
+        Our BFI-2-S evaluation reveals that open-source instruction-tuned LLMs possess stable,
+        distinguishable personality fingerprints. Deployers should consider such traits:
+        a highly agreeable model like Gemma may suit tutoring, yet its positivity bias could
+        downplay critical feedback. Conversely, the neutrality of LLaMA may appear objective
+        but risk seeming cold in empathetic contexts.
+      </p>
+      <p>
+        <strong>Next steps:</strong> (1) run human baselines for calibration, (2) experiment with
+        prompt engineering to dial traits up / down, and (3) explore mitigation strategies for
+        demographic-linked personality bias.
+      </p>
     </section>
   </div>
 </body>
