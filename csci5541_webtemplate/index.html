@@ -10,35 +10,46 @@
   <link rel="stylesheet" href="./files/styles.css">
   <link rel="preconnect" href="https://fonts.gstatic.com/">
 </head>
+
 <body>
   <div class="wrapper">
     <h1 class="title">Do LLMs Have Personality?</h1>
     <h4 class="subtitle">Spring 2025 CSCI 5541 NLP: Class Project – University of Minnesota</h4>
     <h4 class="subtitle">Nvidia and Chill</h4>
 
+    <div class="publication-links">
+      <a href="#" class="button is-normal is-rounded is-dark is-outlined" target="_blank">Final Report</a>
+      <a href="#" class="button is-normal is-rounded is-dark is-outlined" target="_blank">Code</a>
+      <a href="#" class="button is-normal is-rounded is-dark is-outlined" target="_blank">Model Weights</a>
+    </div>
+
+    <hr>
+
     <section id="abstract">
       <h2 class="heading">Abstract</h2>
       <p>
-        This project explores how different Large Language Models (LLMs) respond to the same personality questionnaire (the
-        Big Five Inventory Short Form, BFI-2-S) when prompted to answer as if they belong to specific demographic profiles.
-        By comparing model outputs, we observe how demographic context shapes perceived personality traits. Our findings
-        reveal stable, model-specific behavior signatures, highlighting implications for alignment, fairness, and
-        personalization.
+        This project explores how different Large Language Models (LLMs) respond to the Big Five Inventory Short Form (BFI-2-S)
+        when prompted with synthetic demographic profiles. By collecting over 64 000 Likert-scale responses across four
+        open-source LLMs and 540 profiles, we uncover stable, model-specific personality signatures with implications for
+        fairness and personalization in AI systems.
       </p>
     </section>
+
     <hr>
 
     <section id="introduction">
-      <h2 class="heading">1. Introduction & Background</h2>
-      <p><strong>Problem:</strong> As open-source LLMs proliferate, understanding their implicit behavioral patterns—such
-      as “personality”—becomes crucial for safe, trustworthy deployment.</p>
-      <p><strong>Goal:</strong> Administer a standard Big Five psychometric test to multiple LLMs across 540 synthetic
-      demographic profiles and quantify emergent trait differences.</p>
+      <h2 class="heading">1. Introduction &amp; Background</h2>
+      <p><strong>Problem:</strong> Understanding implicit behavioral patterns—like “personality”—in instruction-tuned LLMs is
+      essential for trustworthy AI deployment.</p>
+      <p><strong>Goal:</strong> Use the BFI-2-S psychometric test across 540 synthetic demographic contexts to quantify
+      personality biases in LLaMA, Qwen, and Gemma models.</p>
     </section>
+
     <hr>
 
     <section id="methodology">
       <h2 class="heading">2. Methodology</h2>
+
       <h3 class="subheading">2.1 Synthetic Profile Generation</h3>
       <ul>
         <li><strong>Age (6):</strong> 18–25, 26–35, 36–45, 46–55, 56–65, 66+ years</li>
@@ -49,59 +60,49 @@
       <p>Example: “I am a 36–45 year-old non-binary with a master’s degree living in India.”</p>
 
       <h3 class="subheading">2.2 Prompt Design</h3>
+      <p>
+        Each profile and one of the 30 BFI-2-S items was formatted as a chat prompt with:
+      </p>
       <ol>
-        <li><em>system</em> message:
-          <code>You are a helpful assistant completing a Big Five personality survey.</code>
-        </li>
-        <li><em>user</em> message combining:
+        <li>A <em>system</em> message: <code>You are a helpful assistant completing a Big Five personality survey.</code></li>
+        <li>A <em>user</em> message combining:
           <ul>
-            <li>The profile sentence</li>
-            <li>Header: <code>Answer with a single number: 1 = strongly disagree … 5 = strongly agree. No extra text.</code></li>
-            <li>The BFI-2-S statement, in backticks</li>
+            <li>The demographic sentence</li>
+            <li>Instructions: <code>Answer with a single number: 1 = strongly disagree … 5 = strongly agree. No extra text.</code></li>
+            <li>The survey item in backticks</li>
           </ul>
         </li>
       </ol>
       <figure class="image is-3by1">
         <img src="./files/bfi-2.png" alt="Prompt template example">
-        <figcaption>
-          Figure 1: Prompt template combining demographic context, instructions, and a BFI-2-S item.
-        </figcaption>
+        <figcaption>Figure 1: Prompt template combining demographic context, instructions, and one BFI-2-S item.</figcaption>
       </figure>
 
-      <h3 class="subheading">2.3 Model Inference</h3>
-      <ul>
-        <li>Deterministic decoding (temperature=0.0, max_tokens=4)</li>
-        <li>Batched inference: 16 200 prompts/model (540 profiles × 30 items)</li>
-        <li>GPU memory capped at 95 %</li>
-      </ul>
-
-      <h3 class="subheading">2.4 Response Parsing & Scoring</h3>
-      <ul>
-        <li>Extract digit 1–5 via regex (retry <0.2 % invalid)</li>
-        <li>Reverse-score items: <code>rating ← (6 – rating)</code></li>
-        <li>Average six items per trait to get per-profile means</li>
-      </ul>
-
-      <h3 class="subheading">2.5 Statistical Summaries</h3>
+      <h3 class="subheading">2.3 Model Inference &amp; Scoring</h3>
       <p>
-        Using Pandas, we computed each model’s mean and standard deviation for all five traits across 540 profiles.
-        These statistics form the basis of our quantitative comparison.
+        We ran deterministic inference (temperature 0.0, max_tokens 4) via vLLM on Gemma-3-1B-it, Qwen-2.5-3B,
+        LLaMA-3.2-1B, and LLaMA-3.2-3B, collecting 16 200 responses per model. Each response’s first digit (1–5)
+        was extracted by regex, invalid outputs (< 0.2%) retried, and reverse-scoring applied where needed.
+      </p>
+
+      <h3 class="subheading">2.4 Aggregation &amp; Analysis</h3>
+      <p>
+        We computed per-profile means for each of the five traits and then aggregated across 540 profiles to obtain
+        model-level trait means and standard deviations using pandas.
       </p>
     </section>
+
     <hr>
 
     <section id="results">
       <h2 class="heading">3. Results</h2>
+
       <h3 class="subheading">3.1 Trait Means Table</h3>
       <table class="table is-striped is-fullwidth">
         <thead>
           <tr>
-            <th>Model</th>
-            <th>Extraversion</th>
-            <th>Agreeableness</th>
-            <th>Conscientiousness</th>
-            <th>Neuroticism</th>
-            <th>Openness</th>
+            <th>Model</th><th>Extraversion</th><th>Agreeableness</th>
+            <th>Conscientiousness</th><th>Neuroticism</th><th>Openness</th>
           </tr>
         </thead>
         <tbody>
@@ -115,21 +116,21 @@
       <h3 class="subheading">3.2 Comparative Bar Chart</h3>
       <figure class="image is-3by2">
         <img src="./files/traits_across_models.png" alt="Trait comparison bar chart">
-        <figcaption>
-          Figure 2: Mean trait scores across models, with standard deviation error bars.
-        </figcaption>
+        <figcaption>Figure 2: Mean trait scores across models, with standard deviation error bars.</figcaption>
       </figure>
     </section>
+
     <hr>
 
     <section id="conclusion">
-      <h2 class="heading">4. Conclusion & Future Work</h2>
+      <h2 class="heading">4. Conclusion &amp; Future Work</h2>
       <ul>
-        <li><strong>Bias:</strong> Models embed demographic stereotypes.</li>
+        <li><strong>Bias:</strong> Models encode demographic stereotypes.</li>
         <li><strong>Control:</strong> Demographic prompts steer tone and style.</li>
-        <li><strong>Next steps:</strong> Human‐baseline comparisons, prompt refinement, bias mitigation.</li>
+        <li><strong>Next steps:</strong> Human-baseline comparisons, prompt refinement, bias mitigation.</li>
       </ul>
     </section>
+
   </div>
 </body>
 </html>
