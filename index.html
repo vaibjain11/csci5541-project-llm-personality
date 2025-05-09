@@ -6,23 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Do LLMs Have Personality? | CSCI 5541 (Spring 2025)</title>
 
-  <!-- local CSS files are in the same folder -->
+  <!-- local CSS files (same directory) -->
   <link rel="stylesheet" href="bulma.min.css">
   <link rel="stylesheet" href="styles.css">
 
   <style>
     img.responsive { max-width: 100%; height: auto; }
-    h2            { margin-top: 2rem; }
-    /* add a little space so the last section isn’t flush with the bottom edge */
-    body          { padding-bottom: 3rem; }
+    body           { padding-bottom: 3rem; }
+    h2             { margin-top: 2rem; }
   </style>
 </head>
 
 <body>
   <div class="wrapper">
     <h1 class="title">Do LLMs Have Personality?</h1>
-    <h4 class="subtitle">CSCI 5541 – Natural Language Processing • University of Minnesota</h4>
-    <h4 class="subtitle">Team “nvidia and chill”</h4>
+    <h4 class="subtitle">CSCI 5541 – Natural Language Processing</h4>
+    <h4 class="subtitle">University of Minnesota</h4>
+    <h4 class="subtitle">Author: Vaibhav Jain</h4>
+    <h4 class="subtitle">Team Nvidia And Chill</h4>
 
     <hr>
 
@@ -30,11 +31,12 @@
     <section id="abstract">
       <h2>Abstract</h2>
       <p>
-        We administer the 30-item <em>BFI-2-S</em> to four instruction-tuned LLMs across 540
-        synthetic demographic profiles. Over 64 000 responses reveal stable, model-specific
-        personality signatures: Gemma is highly agreeable and emotionally stable, while LLaMA
-        remains neutral. The study highlights the need for personality-aware evaluation when
-        deploying conversational AI.
+        We administer the 30-item <em>BFI-2-S</em> to four instruction-tuned LLMs across
+        540 synthetic demographic profiles. More than 64 000 Likert responses reveal
+        stable, model-specific personality signatures: Gemma is highly agreeable and
+        emotionally stable, while LLaMA models cluster near neutral. These findings
+        underscore the need for personality-aware evaluation when deploying
+        conversational AI.
       </p>
     </section>
 
@@ -42,11 +44,12 @@
 
     <!-- INTRODUCTION -->
     <section id="introduction">
-      <h2>1  Introduction & Motivation</h2>
+      <h2>1 Introduction &amp; Motivation</h2>
       <p>
-        LLMs often project a perceived “personality.” Such traits influence user trust and
-        engagement, yet are seldom measured systematically. We quantify these latent tendencies
-        with a standard psychometric test under controlled demographic prompts.
+        LLMs often project a distinctive “tone” even without persona prompts. Such
+        emergent traits influence user trust and engagement, yet are seldom measured
+        systematically. We quantify these tendencies with a standard psychometric test
+        under controlled demographic prompts.
       </p>
     </section>
 
@@ -54,28 +57,29 @@
 
     <!-- METHODOLOGY -->
     <section id="methodology">
-      <h2>2  Methodology</h2>
+      <h2>2 Methodology</h2>
 
-      <h3>2.1 Synthetic Profile Grid</h3>
+      <h3>2.1 Synthetic Profile Grid (540)</h3>
       <ul>
-        <li><strong>Age (6):</strong> 18–25 … 66+</li>
+        <li><strong>Age (6):</strong> 18–25, 26–35, 36–45, 46–55, 56–65, 66+</li>
         <li><strong>Gender (3):</strong> Male, Female, Non-binary</li>
         <li><strong>Location (6):</strong> USA, Germany, India, Brazil, Japan, Australia</li>
-        <li><strong>Education (5):</strong> High-School → Doctorate</li>
+        <li><strong>Education (5):</strong> High-School, Associate’s, Bachelor’s, Master’s, Doctorate</li>
       </ul>
 
       <h3>2.2 Prompt Template</h3>
       <figure>
-        <img src="bfi-2.png" class="responsive" alt="Prompt template">
+        <img src="bfi-2.png" class="responsive" alt="Prompt template example">
         <figcaption style="text-align:center">
           Figure 1 – Example prompt containing demographics, instructions, and one BFI-2-S item.
         </figcaption>
       </figure>
 
-      <h3>2.3 Inference & Scoring</h3>
+      <h3>2.3 Inference &amp; Scoring</h3>
       <p>
-        Each model answered 16 200 prompts using deterministic decoding. Ratings were parsed,
-        reverse-scored where needed, and averaged to trait means ± SD.
+        Gemma-3-1B-it, Qwen-2.5-3B, LLaMA-3.2-1B and 3B each answered 16 200 prompts using
+        deterministic decoding (temperature 0.0, max_tokens 4). We parsed the first
+        digit (1–5), applied reverse-scoring, and averaged the six items per trait.
       </p>
     </section>
 
@@ -83,16 +87,18 @@
 
     <!-- RESULTS -->
     <section id="results">
-      <h2>3  Results</h2>
+      <h2>3 Results</h2>
 
       <h3>3.1 Trait Means</h3>
       <table class="table is-striped is-fullwidth">
         <thead>
-          <tr><th>Model</th><th>Extr.</th><th>Agree.</th><th>Consc.</th><th>Neur.</th><th>Open.</th></tr>
+          <tr>
+            <th>Model</th><th>Extr.</th><th>Agree.</th><th>Consc.</th><th>Neur.</th><th>Open.</th>
+          </tr>
         </thead>
         <tbody>
           <tr><td>Gemma-3-1B-it</td><td>4.19</td><td>4.60</td><td>4.40</td><td>1.89</td><td>4.20</td></tr>
-          <tr><td>Qwen-2.5-3B </td><td>3.75</td><td>4.05</td><td>3.90</td><td>2.60</td><td>4.00</td></tr>
+          <tr><td>Qwen-2.5-3B</td><td>3.75</td><td>4.05</td><td>3.90</td><td>2.60</td><td>4.00</td></tr>
           <tr><td>LLaMA-3.2-1B</td><td>3.45</td><td>3.50</td><td>3.40</td><td>3.35</td><td>3.60</td></tr>
           <tr><td>LLaMA-3.2-3B</td><td>3.42</td><td>3.55</td><td>3.48</td><td>3.30</td><td>3.55</td></tr>
         </tbody>
@@ -103,15 +109,15 @@
         <img src="traits_across_models.png" class="responsive" alt="Trait comparison bar chart">
         <figcaption style="text-align:center">
           Figure 2 – Gemma is the most agreeable and least neurotic; LLaMA models cluster near
-          neutral; Qwen sits between them for most traits.
+          neutral; Qwen lies between them.
         </figcaption>
       </figure>
 
       <p>
-        <strong>Key observation:</strong> Gemma’s Agreeableness (4.60) and low Neuroticism (1.89)
-        suggest a consistently supportive tone, while LLaMA’s near-midpoint scores imply a more
-        balanced style. The differences persist across all demographics, indicating architecture
-        and training data—not prompt wording—drive these personalities.
+        <strong>Observation:</strong> Gemma’s low Neuroticism (1.89) and high Agreeableness (4.60)
+        indicate a consistently supportive style, while LLaMA’s near-midpoint scores reflect a more
+        balanced, factual tone. These patterns hold across all demographics, showing that model
+        architecture and training data—not prompt wording—drive personality biases.
       </p>
     </section>
 
@@ -119,15 +125,15 @@
 
     <!-- CONCLUSION -->
     <section id="conclusion">
-      <h2>4  Conclusion &amp; Future Work</h2>
+      <h2>4 Conclusion &amp; Future Work</h2>
       <p>
-        Instruction-tuned LLMs exhibit measurable, model-specific personality biases. Selecting a
-        model therefore means choosing—as well as aligning—a particular conversational style.
-        Gemma may excel in empathetic roles; LLaMA’s neutrality might fit analytical tasks.
+        Instruction-tuned LLMs manifest reproducible personality traits. Gemma’s warmth may suit
+        supportive roles but could downplay critique. LLaMA’s neutrality might lend objectivity yet
+        risk appearing detached.
       </p>
       <p>
-        <strong>Next steps:</strong> calibrate with human baselines, investigate prompt-level
-        personality control, and develop mitigation strategies for demographic-linked bias.
+        <strong>Next steps:</strong> calibrate with human baselines, develop trait-controllable
+        prompts, and evaluate fairness impacts in real-world applications.
       </p>
     </section>
   </div>
