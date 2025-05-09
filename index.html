@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Do LLMs Have Personality? | CSCI 5541 Spring 2025</title>
 
-  <!-- Local CSS in the same directory -->
+  <!-- All assets are in the same directory as index.html -->
   <link rel="stylesheet" href="bulma.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -21,103 +21,31 @@
 
     <section id="abstract">
       <h2>Abstract</h2>
-      <p>
-        This project explores how different Large Language Models (LLMs) respond to the Big Five Inventory Short Form (BFI-2-S)
-        when prompted with synthetic demographic profiles. By collecting over 64 000 responses across four open-source LLMs
-        and 540 profiles, we uncover stable, model-specific personality signatures with implications for fairness and personalization.
-      </p>
-    </section>
-
-    <hr>
-
-    <section id="introduction">
-      <h2>1. Introduction &amp; Background</h2>
-      <p><strong>Problem:</strong> As open-source LLMs proliferate, understanding their implicit “personality-like” behaviors
-      is crucial for safe, trustworthy AI.</p>
-      <p><strong>Goal:</strong> Administer the BFI-2-S test across 540 synthetic demographic contexts to quantify personality biases
-      in instruction-tuned LLaMA, Qwen, and Gemma models.</p>
+      <p>We administer the BFI-2-S personality survey to four open-source LLMs across 540 synthetic demographic profiles,
+         uncovering stable, model-specific trait signatures.</p>
     </section>
 
     <hr>
 
     <section id="methodology">
-      <h2>2. Methodology</h2>
+      <h2>Methodology</h2>
 
-      <h3>2.1 Synthetic Profile Generation</h3>
-      <ul>
-        <li><strong>Age (6):</strong> 18–25, 26–35, 36–45, 46–55, 56–65, 66 + years</li>
-        <li><strong>Gender (3):</strong> Male, Female, Non-binary</li>
-        <li><strong>Location (6):</strong> USA, Germany, India, Brazil, Japan, Australia</li>
-        <li><strong>Education (5):</strong> High School, Associate’s, Bachelor’s, Master’s, Doctorate</li>
-      </ul>
-      <p>Example: “I am a 36–45 year-old non-binary with a master’s degree living in India.”</p>
-
-      <h3>2.2 Prompt Design</h3>
-      <p>For each profile and each of the 30 BFI-2-S items we sent a two-part chat prompt:</p>
-      <ol>
-        <li>
-          <em>system</em> message:
-          <code>You are a helpful assistant completing a Big Five personality survey.</code>
-        </li>
-        <li>
-          <em>user</em> message combining:
-          <ul>
-            <li>The demographic sentence</li>
-            <li>Instructions: <code>Answer with a single number: 1 = strongly disagree … 5 = strongly agree. No extra text.</code></li>
-            <li>The survey statement wrapped in backticks</li>
-          </ul>
-        </li>
-      </ol>
+      <h3>Prompt Template</h3>
       <figure class="image is-3by1">
         <img src="bfi-2.png" alt="Prompt template example">
-        <figcaption>Figure 1: Prompt template combining demographic context, instructions, and one BFI-2-S item.</figcaption>
+        <figcaption>Figure 1: Example prompt combining demographic context and a BFI-2-S item.</figcaption>
       </figure>
-
-      <h3>2.3 Inference &amp; Scoring</h3>
-      <p>
-        We ran deterministic inference (temperature 0.0, max_tokens 4) via vLLM on Gemma-3-1B-it, Qwen-2.5-3B,
-        LLaMA-3.2-1B, and LLaMA-3.2-3B, collecting 16 200 prompts per model. We extracted the first digit (1–5)
-        with regex, retried invalid outputs (< 0.2 %), applied reverse-scoring, and computed per-trait means.
-      </p>
     </section>
 
     <hr>
 
     <section id="results">
-      <h2>3. Results</h2>
+      <h2>Results</h2>
 
-      <h3>3.1 Trait Means Table</h3>
-      <table class="table is-striped is-fullwidth">
-        <thead>
-          <tr>
-            <th>Model</th><th>Extraversion</th><th>Agreeableness</th>
-            <th>Conscientiousness</th><th>Neuroticism</th><th>Openness</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Gemma-3-1B-it</td><td>4.19</td><td>4.60</td><td>4.40</td><td>1.89</td><td>4.20</td></tr>
-          <tr><td>Qwen-2.5-3B</td><td>3.75</td><td>4.05</td><td>3.90</td><td>2.60</td><td>4.00</td></tr>
-          <tr><td>LLaMA-3.2-1B</td><td>3.45</td><td>3.50</td><td>3.40</td><td>3.35</td><td>3.60</td></tr>
-          <tr><td>LLaMA-3.2-3B</td><td>3.42</td><td>3.55</td><td>3.48</td><td>3.30</td><td>3.55</td></tr>
-        </tbody>
-      </table>
-
-      <h3>3.2 Comparative Bar Chart</h3>
       <figure class="image is-3by2">
         <img src="traits_across_models.png" alt="Trait comparison bar chart">
-        <figcaption>Figure 2: Mean trait scores across models, with standard deviation error bars.</figcaption>
+        <figcaption>Figure 2: Mean Big-Five trait scores across models (error bars = ± SD).</figcaption>
       </figure>
-    </section>
-
-    <hr>
-
-    <section id="conclusion">
-      <h2>4. Conclusion &amp; Future Work</h2>
-      <ul>
-        <li><strong>Bias:</strong> Models encode demographic stereotypes.</li>
-        <li><strong>Control:</strong> Demographic prompts steer tone and style.</li>
-        <li><strong>Next steps:</strong> Human-baseline comparisons, prompt refinement, bias mitigation.</li>
-      </ul>
     </section>
   </div>
 </body>
